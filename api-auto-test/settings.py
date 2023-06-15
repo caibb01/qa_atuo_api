@@ -79,27 +79,19 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "api_test",  # 数据库名字
         'USER': 'root',
-        'PASSWORD': 'test1234',
-        'HOST': '10.11.29.14',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '3333',
     },
-    # 'cm_rep_test': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': "cm-rep",  # 数据库名字
-    #     'USER': 'mars',
-    #     'PASSWORD': 'FS4Dd5sSDF7FA',
-    #     'HOST': 'rm-wz9t61ne42sp5dxcq.mysql.rds.aliyuncs.com',
-    #     'PORT': '3306',
-    # }
-    # 下面这个是生产的
     'cm_rep_test': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "cm-rep",  # 数据库名字
-        'USER': 'caibb01_8alc',
-        'PASSWORD': 'yUOfW8XqFpKT0LyZ',
-        'HOST': 'ksdb.myscrm.cn',
-        'PORT': '9696',
+        'NAME': "",  # 数据库名字
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '3306',
     }
+
 }
 # DATABASE_ROUTERS = ['api-auto-test.database_router.DatabaseAppsRouter']
 # DATABASE_APPS_MAPPING = {

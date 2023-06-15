@@ -26,5 +26,5 @@ urlpatterns = [
 
 
     # 贾维斯续签
-    path('jarvis/renew/', jarvis.jarvisrenew),
+    # path('jarvis/renew/', jarvis.jarvisrenew),
 ]
