@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">新增SQL查询</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" id="sqladdform" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label>{{ field.label}}</label>
+                        {{ field }}
+                        <span style="color: red;">{{ field.errors.0 }}</span>
+                    </div>
+                    {% endfor %}
+                    <button type="button" id="cancalbtn" class="btn btn-danger">取消</button>
+                    <button type="submit" id="sqladd" class="btn btn-primary">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript">
+    $(function () {
+        SqlAjaxAddEvent();
+        SqlAjaxCancleEvent();
+    })
+
+    function SqlAjaxCancleEvent() {
+        $("#cancalbtn").click(function () {
+            window.location.href = '/export/sql/list';
+        })
+    }
+
+    function SqlAjaxAddEvent() {
+        $("#sqladd").click(function (event) {
+            event.preventDefault(); // 阻止默认的表单提交行为
+            // 使用 AJAX 发送表单数据到后端
+            $.ajax({
+                    url: "/export/sql/add/",   // 后端处理请求的 URL
+                    type: 'post',
+                    data: $('#sqladdform').serialize(), // 将表单数据序列化
+                    dataType: "JSON",
+                    success: function (res) {
+                        if (res.status) {
+                            alert("创建成功");
+                            // 重定向到列表页面
+                            window.location.href = '/export/sql/list';
+                        } else {
+                            $('#sqladdform .error-message').remove(); // 清空之前的错误消息
+                            $.each(res.errors, function (field, errors) {
+                                $('#id_' + field).next('.error-message').remove(); // 清除当前字段的错误消息
+                                $('#id_' + field).after('<span class="error-message" style="color: red">' + errors[0] + '</span>'); // 插入新的错误消息
+                            });
+                        }
+
+                    }
+                }
+            )
+        })
+    }
+
+
+</script>
+
+    <script>
+    $('#id_create_time').datetimepicker({
+        format: 'YYYY-MM-DD',
+        allowInputToggle:true,
+        locale: moment.locale('zh-cn')
+    });
+    </script>
+{% endblock %}
